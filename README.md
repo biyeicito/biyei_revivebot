@@ -2,6 +2,9 @@
 
 Configurable resuscitation NPC bot, compatible with `ox_target` or `qb-target`, with an `ox_lib` TextUI fallback when you don't use a target. The doctor runs client-side: walks to your position, plays a treatment animation if you are injured, or CPR if you are dead, and then returns to the origin point. Includes framework checks (auto ESX/QBCore), whitelist by job and citizenid, and restriction based on the number of connected medics. When healing/reviving it shows a progress bar (ox_lib).
 
+### Preview
+https://streamable.com/h4uxci
+
 ### Requirements
 - `ox_lib` (required)
 - `ox_target` or `qb-target` (optional depending on `Config.UseTarget` and `Config.Target`)
