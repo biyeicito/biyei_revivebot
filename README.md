@@ -1,53 +1,52 @@
 ## 🧑‍⚕️ Biyei Revive Bot
 
-Bot NPC de reanimación configurable, compatible con `ox_target` o `qb-target`, y alternativa con TextUI de `ox_lib` cuando no usas target. El médico es client-side: camina hasta tu posición, realiza animación de tratamiento si estás herido, o RCP si estás muerto, y al finalizar vuelve a su punto de origen. Incluye validaciones por framework (auto ESX/QBCore), whitelist por empleo y citizenid, y restricción por cantidad de médicos conectados. Al curar/revivir muestra un progressbar (ox_lib).
+Configurable resuscitation NPC bot, compatible with `ox_target` or `qb-target`, with an `ox_lib` TextUI fallback when you don't use a target. The doctor runs client-side: walks to your position, plays a treatment animation if you are injured, or CPR if you are dead, and then returns to the origin point. Includes framework checks (auto ESX/QBCore), whitelist by job and citizenid, and restriction based on the number of connected medics. When healing/reviving it shows a progress bar (ox_lib).
 
-### Requisitos
-- `ox_lib` (obligatorio)
-- `ox_target` o `qb-target` (opcional según `Config.UseTarget` y `Config.Target`)
-- Framework: ESX o QBCore (detección automática si `Config.Framework = 'auto'`)
+### Requirements
+- `ox_lib` (required)
+- `ox_target` or `qb-target` (optional depending on `Config.UseTarget` and `Config.Target`)
+- Framework: ESX or QBCore (auto-detection if `Config.Framework = 'auto'`)
 
-### Instalación
-1. Copia la carpeta `biyei_revivebot` a `resources/[standalone]/[bot revivir]/`.
-2. Asegúrate de tener `ox_lib` iniciado antes de este recurso.
-3. Inicia el recurso en tu `server.cfg`:
+### Installation
+1. Copy the `biyei_revivebot` folder to `resources/[standalone]/[bot revivir]/`.
+2. Make sure `ox_lib` is started before this resource.
+3. Start the resource in your `server.cfg`:
 
 ```cfg
 ensure ox_lib
 ensure biyei_revivebot
 ```
 
-Si utilizas target, también inicia `ox_target` o `qb-target` según tu configuración.
+If you use a target, also start `ox_target` or `qb-target` according to your configuration.
 
-### Configuración
-Archivo: `config.lua`
+### Configuration
+File: `config.lua`
 
-- `Config.Framework`: `'auto' | 'esx' | 'qbcore'` – Detección del framework.
-- `Config.MedicsJobs`: lista de jobs considerados como médicos (para el filtro de disponibilidad).
-- `Config.EventRevive`: evento que se dispara al finalizar la reanimación (se invoca en cliente y servidor para mayor compatibilidad).
-- `Config.UseTarget`: `true` para usar `ox_target`/`qb-target`, `false` para usar TextUI de `ox_lib` y tecla `E`.
-- `Config.Target`: `'ox_target' | 'qb-target'` – Sólo aplica si `UseTarget = true`.
-- `Config.Bots`: lista de bots. Cada entrada acepta:
-  - `jobs`: `false` para permitir cualquiera o lista de empleos permitidos (ej. `{ 'police', 'ambulance' }`).
-  - `citizenid`: `false` para permitir cualquiera o lista de IDs permitidos.
-  - `model`: modelo del NPC (ej. `'s_m_m_doctor_01'`).
-  - `minMedics`: número mínimo de médicos conectados para deshabilitar al bot. Si hay `>= minMedics`, se deniega el uso.
-  - `coords`: `vector4(x, y, z, w)` posición y heading del bot.
-  - `secondsToRevive`: segundos de la barra de progreso de curación.
+- `Config.Framework`: `'auto' | 'esx' | 'qbcore'` – Framework detection.
+- `Config.MedicsJobs`: list of jobs considered as medics (for the availability filter).
+- `Config.EventRevive`: event fired when the resuscitation finishes (invoked on both client and server for broader compatibility).
+- `Config.UseTarget`: `true` to use `ox_target`/`qb-target`, `false` to use `ox_lib` TextUI and the `E` key.
+- `Config.Target`: `'ox_target' | 'qb-target'` – Only applies if `UseTarget = true`.
+- `Config.Bots`: list of bots. Each entry accepts:
+  - `jobs`: `false` to allow anyone or a list of allowed jobs (e.g. `{ 'police', 'ambulance' }`).
+  - `citizenid`: `false` to allow anyone or a list of allowed IDs.
+  - `model`: NPC model (e.g. `'s_m_m_doctor_01'`).
+  - `minMedics`: minimum number of connected medics to disable the bot. If there are `>= minMedics`, usage is denied.
+  - `coords`: `vector4(x, y, z, w)` bot position and heading.
+  - `secondsToRevive`: seconds for the healing progress bar.
 
-Nota sobre médicos: el bot permite reanimar solo cuando la cantidad de médicos conectados es menor a `minMedics`. Por ejemplo, si `minMedics = 1` y hay 1 o más médicos conectados, el bot denegará el servicio.
+Note about medics: the bot only allows reviving when the number of connected medics is less than `minMedics`. For example, if `minMedics = 1` and there are 1 or more medics connected, the bot will deny the service.
 
-### Uso
-- Acércate al NPC.
-  - Si `UseTarget = true`, interactúa con el target y elige “Revivir”.
-  - Si `UseTarget = false`, aparecerá TextUI `[E] Hablar con médico`; presiona `E`.
-- Debes estar inconsciente para poder usarlo. Comenzará un progressbar “Reanimando…”, tras el cual se disparará `Config.EventRevive`.
+### Usage
+- Approach the NPC.
+  - If `UseTarget = true`, interact with the target and choose "Revive".
+  - If `UseTarget = false`, a TextUI will appear: `[E] Talk to doctor`; press `E`.
+- You must be unconscious to use it. It will start a "Resuscitating…" progress bar, after which `Config.EventRevive` is triggered.
 
-### Créditos
-- Creado por: Biyei
-- Créditos adicionales: TuNombreAquí
+### Credits
+- Created by: Biyei
 
-Si compartes o modificas, por favor mantén los créditos.
+If you share or modify, please keep the credits.
 
-### Soporte
-Si necesitas ajustes (más checks, animaciones o integración con tu sistema de ambulancias), abre un issue o personaliza el `client.lua` y `server.lua` según tus necesidades.
+### Support
+If you need adjustments (more checks, animations, or integration with your ambulance system), open an issue or customize `client.lua` and `server.lua` to your needs.
