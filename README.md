@@ -46,8 +46,12 @@ Note about medics: the bot only allows reviving when the number of connected med
   - If `UseTarget = false`, a TextUI will appear: `[E] Talk to doctor`; press `E`.
 - You must be unconscious to use it. It will start a "Resuscitating…" progress bar, after which `Config.EventRevive` is triggered.
 
+- ### Our store
+- Store: https://store.biyei.net
+
 ### Credits
 - Created by: Biyei
+
 
 If you share or modify, please keep the credits.
 
